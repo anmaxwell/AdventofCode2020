@@ -14,4 +14,3 @@ for i in mylist:
     if remainder in mylist:
         print(remainder*i)
         break
-        
