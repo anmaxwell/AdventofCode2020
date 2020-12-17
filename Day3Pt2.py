@@ -14,12 +14,16 @@ for ind, arow in enumerate(treemap):
     #calc what position to check
     poscheck = currpos%rowlen
 
-    #if it's a tree then count
-    if arow[poscheck] == '#':
-        notrees +=3
-    
-    #move along
-    currpos +=3
+    if ind%2 == 0:
+
+        #if it's a tree then count
+        if arow[poscheck] == '#':
+            print(arow)
+            notrees +=1
+        
+        #move along
+        currpos +=1
+
 
 print(notrees)
 
