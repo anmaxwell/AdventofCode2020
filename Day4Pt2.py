@@ -5,6 +5,7 @@ from cerberus import Validator
 #read in the passport file
 output = open("Passport.txt", "r")
 
+#set validation rules using cerberus
 schema = {'byr': {'required': True, 'type': 'integer', 'min': 1920, 'max': 2002},
             'iyr': {'required': True, 'type': 'integer', 'min': 2010, 'max': 2020},
             'eyr': {'required': True, 'type': 'integer', 'min': 2020, 'max': 2030},
@@ -31,17 +32,22 @@ for line in myarray:
     for item in partline:
         (key, val) = item.split(':')
 
+        #ensure numeric fields converted
         try:
             my_dict[key] = int(val)
         except ValueError:
             my_dict[key] = val
 
+        #pid has leading zeroes so keep as string for length validation
         if key == 'pid':
             my_dict[key] = val
 
+    
+    #check vlaidates against schema
     if v.validate(my_dict):
         height = my_dict['hgt']
-        
+
+        #check height validation
         if height[-2:] == 'cm' and len(height)==5:
             hgtval = int(height[:3])
             if 150 <= hgtval <= 193:
