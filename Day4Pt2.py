@@ -8,7 +8,7 @@ output = open("Passport.txt", "r")
 schema = {'byr': {'required': True, 'type': 'integer', 'min': 1920, 'max': 2002},
             'iyr': {'required': True, 'type': 'integer', 'min': 2010, 'max': 2020},
             'eyr': {'required': True, 'type': 'integer', 'min': 2020, 'max': 2030},
-            'pid': {'required': True, 'type': 'integer', 'minlength': 9, 'maxlength': 9},
+            'pid': {'required': True, 'type': 'string', 'minlength': 9, 'maxlength': 9},
             'hgt': {'required': True, 'type': 'string', 'minlength': 4, 'maxlength': 5},
             'hcl': {'required': True, 'type': 'string', 'minlength': 7, 'maxlength': 7,'regex': '^#[0-9a-f]{6}'},
             'ecl': {'required': True, 'type': 'string', 'allowed': ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']},
@@ -31,18 +31,16 @@ for line in myarray:
     for item in partline:
         (key, val) = item.split(':')
 
-        numeric = ['byr', 'iyr', 'eyr']
-
-
         try:
             my_dict[key] = int(val)
         except ValueError:
             my_dict[key] = val
 
-    
+        if key == 'pid':
+            my_dict[key] = val
+
     if v.validate(my_dict):
         height = my_dict['hgt']
-        print(my_dict['pid'])
         
         if height[-2:] == 'cm' and len(height)==5:
             hgtval = int(height[:3])
