@@ -7,7 +7,7 @@ bag_dict = {}
 #set the bag colour to check for
 colourcheck = ['shiny gold']
 
-#create a list for the final count
+#create a count for the number of bags
 finalcount = 0
 
 #create a dictionary of bags and remove unecessary characters
@@ -28,6 +28,8 @@ for line in output:
 while len(colourcheck) != 0:
     newcheck=[]
 
+    #work out how many bags of each colour and repeat the count for each one
+    #definitley not the best solution
     for colour in colourcheck:
         for eachbag in bag_dict[colour]:
             if eachbag != 'no other':
