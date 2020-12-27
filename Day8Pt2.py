@@ -23,6 +23,7 @@ for line in output:
         jmpcount +=1
     filelen +=1
 
+#work through changing each nop in order to see if it breaks the loop
 while noptochange < nopcount:
 
     #set up the counts to look for the infinite loop
@@ -55,7 +56,7 @@ while noptochange < nopcount:
     if finalval != 0:
         break
 
-
+#work through changing each jmp in order to see if it breaks the loop
 while jmptochange < jmpcount:
 
     #set up the counts to look for the infinite loop
@@ -87,7 +88,6 @@ while jmptochange < jmpcount:
     jmptochange +=1
     if finalval != 0:
         break
-
 
 print('answer', finalval)
 
