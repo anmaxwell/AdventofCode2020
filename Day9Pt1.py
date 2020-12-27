@@ -4,13 +4,15 @@ output = open("xmaslist.txt", "r")
 #set the preamble number 
 preamble = 25
 
-#create the blank list of numbers and results
+#create the blank list 
 xmaslist = []
-answerlist = []
 
 #add each number to the list for comparison
 for item in output:
     xmaslist.append(int(item.strip()))
+
+#create the list to fin the final result
+dupelist = xmaslist[preamble:]
 
 #check each value in the list
 for i in range(len(xmaslist)-preamble):
@@ -18,14 +20,12 @@ for i in range(len(xmaslist)-preamble):
     
     value = xmaslist[i+preamble]
 
-    #add each value that has a sum to a new list
+    #remove each value that has a sum from the list
     for check in partlist:
         result = value-check
         if result in partlist and result != check:
-            answerlist.append(value)
+            dupelist.remove(value)
             break
-  
-#find the ifference of the 2 lists
-set_difference = set(xmaslist[preamble:]) - set(answerlist)
-print('sd', set_difference)
 
+
+print('answer', dupelist)
