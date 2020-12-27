@@ -14,7 +14,7 @@ for line in output:
     command.append((line.split()[0]))
     value.append(int(line.split()[1]))
 
-#check fo each unique run
+#check for each unique run
 while i not in linelist:
     linelist.append(i)
 
@@ -27,4 +27,5 @@ while i not in linelist:
         i +=1
 
 print(accumulator)
+
 
