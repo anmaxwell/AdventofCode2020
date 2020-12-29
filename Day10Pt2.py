@@ -1,4 +1,5 @@
 import itertools as it
+import more_itertools as mit
 
 
 #read in the list of numbers
@@ -29,40 +30,48 @@ for n in range(1, len(removallist) + 1):
     for combination in it.combinations(removallist, n):
         posscombos.append(combination)
   
-#iterate through the full list removing all combintions
-#of the adapters that can be removed to see if they leave
-#a valid combination.  
-#individual adapters will be valid, only where adapters have 
-#consecutive indexes could there be an issue.
-#identify combinations with consecutive indexes
+#iterate through the full list removing all combinations
+#of the adapters.  
+#only where adapters have consecutive indexes could there
+#be an issue.
+#identify combinations with consecutive indexes to check 
 
-validcombos = 0
 combocheck = []
 
 for combo in posscombos:
     
-    if len(combo) == 1:
-        validcombos +=1
-    else:
+    if len(combo) != 1:
         indexcheck = []
         #find the index of the adapters in the full list
         for removaladap in combo:
             indexcheck.append(adapterlist.index(removaladap))
 
-        print('check', indexcheck)
-
-        #check to see if consecutive
-        
+        #check to see if consecutive and add to list to check further
         for i in range(len(indexcheck)-1):
             if indexcheck[i+1] - indexcheck[i] == 1:
                 combocheck.append(indexcheck)
                 break
 
 
-    print('more checking', combocheck)
-print('end', validcombos)
 
+#loop through all combos to check and find the indexes
+#of the first and last consecutive groups.
+#check that removing these adapters does not leave a gap 
+#greater than 3
 
+invalidcombos = []
 
+for combo in combocheck:
+    for group in mit.consecutive_groups(combo):
+            indextocheck = list(group)
+            if len(indextocheck) > 1:
+                firstind = indextocheck[0]-1
+                lastind = indextocheck[-1]+1
+                if adapterlist[lastind] - adapterlist[firstind] >3:
+                    invalidcombos.append(combo)
+                    break
 
+print(len(invalidcombos))
+
+print('end', len(posscombos)-len(invalidcombos))
 
