@@ -1,3 +1,7 @@
+#start with how many paths make up the first step then build 
+#on to how many paths make it to the next step and continue
+#to sum all the previous paths
+
 #read in the list of numbers
 output = open("adapters.txt", "r")
 
